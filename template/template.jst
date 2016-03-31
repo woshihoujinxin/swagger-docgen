@@ -1,0 +1,116 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>Preview</title>
+{{?it.dev}}
+  <link rel=stylesheet href=styles.less>
+{{??}}
+  <style>{{#def.styles}}</style>
+{{?}}
+<header>
+  <a href=#/intro>{{=it.info.title}}</a>
+</header>
+<div class=container>
+  <nav>
+    <div>
+    {{ for (var tag in it.tags) { }}
+      <h3>{{=tag}}</h3>
+      <ul>
+        {{~it.tags[tag] :path}}
+        <li><a href="#{{=it.paths[path].id}}">{{=path}}</a></li>
+        {{~}}
+      </ul>
+    {{}}}
+    </div>
+  </nav>
+<main>
+  {{? it.info.title }}
+  <article id=/intro>
+    <h2>{{= it.info.title }}</h2>
+    {{= it.info.description }}
+  </article>
+  {{?}}
+  {{for (var path in it.paths) { }}
+  <article id="{{=it.paths[path].id}}">
+    <h2>{{=path}}</h2>
+    {{? it.paths[path].summary }}
+      <h4>{{=it.paths[path].summary}}</h4>
+    {{?}}
+    {{? it.paths[path].description }}
+      <p>{{=it.paths[path].description}}</p>
+    {{?}}
+    <h3>Resource URL</h3>
+    <code>https://{{=it.info.host}}{{=it.paths[path].href}}</code>
+    <h3>Resource Information</h3>
+    <dl>
+      <dt>Response Formats</dt>
+      <dd>JSON</dd>
+      <dt>Requires authentication?</dt>
+      <dd>Yes (user context only)</dd>
+    </dl>
+    {{? it.paths[path].params.length }}
+      <h3>Parameters</h3>
+      <ul class=params>
+      {{~ it.paths[path].params :param}}
+        <li>
+          {{? !param.params }}
+          <div class=wrap>
+            <div>
+              <span>{{=param.name}}</span>
+              {{? param.required}}
+                <span>required</span>
+              {{??}}
+                <span>optional</span>
+              {{?}}
+            </div>
+            <div>{{=param.description}}</div>
+          </div>
+          {{??}}
+          <details>
+            <summary>
+              <div class=wrap>
+                <div>
+                  <span>{{=param.name}}</span>
+                  {{? param.required}}
+                    <span>required</span>
+                  {{??}}
+                    <span>optional</span>
+                  {{?}}
+                </div>
+                <div>{{=param.description}}</div>
+              </div>
+            </summary>
+            <ul>
+              {{~ param.params :subparam}}
+              <li class=wrap>
+                <div>
+                  <span>{{=subparam.name}}</span>
+                  {{? subparam.required}}
+                    <span>required</span>
+                  {{??}}
+                    <span>optional</span>
+                  {{?}}
+                </div>
+                <div>{{=subparam.description}}</div>
+              </li>
+              {{~}}
+            </ul>
+          </details>
+          {{?}}
+        </li>
+      {{~}}
+      </ul>
+    {{?}}
+    <h3>Example Request</h3>
+    <code>
+      {{=it.paths[path].method}}<br><br>
+      https://{{=it.info.host}}{{=it.paths[path].href}}
+    </code>
+    {{?it.paths[path].body}}
+      <pre><code>{{=it.paths[path].body}}</code></pre>
+    {{?}}
+  </article>
+  {{}}}
+</main>
+</div>
+<footer>&copy; 2016 {{=it.info.title}}. v{{=it.info.version}}</footer>
+<script>if (!location.hash) location.hash = '/intro';</script>

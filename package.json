@@ -1,0 +1,47 @@
+{
+  "name": "swagger-docgen",
+  "version": "0.1.0",
+  "description": "Create documentation for your Swagger API",
+  "main": "index.js",
+  "dependencies": { "marked": "^0.3.5" },
+  "devDependencies": {
+    "dot": "^1.0.3",
+    "commander": "^2.9.0",
+    "mkdirp": "^0.5.1",
+    "jschema-deref": "github:zanona/jschema-deref",
+    "less": "^2.6.1",
+    "onchange": "^2.2.0",
+    "bs-less": "github:zanona/bs-less",
+    "parallelshell": "^2.0.0"
+  },
+  "bin": { "doc": "cli.js" },
+  "scripts": {
+    "prebuild": "lessc template/styles.less --compress > template/styles.def",
+    "build": "dottojs -s ./template -d ./",
+    "postbuild": "rm template/styles.def",
+    "prepublish": "npm run build",
+    "watch:css": "onchange 'template/*.less' -i -- cp template/styles.less test/",
+    "watch:html": "onchange 'template/*.jst' -i -- node scripts/compile-template",
+    "start": "parallelshell 'npm run watch:css' 'npm run watch:html' 'bs-less test/'"
+  },
+  "author": "Marcus Zanona <zanona@me.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zanona/swagger-docs.git"
+  },
+  "keywords": [
+    "swagger",
+    "api",
+    "docs",
+    "doc",
+    "documentation",
+    "rest",
+    "restful",
+    "twitter"
+  ],
+  "bugs": {
+    "url": "https://github.com/zanona/swagger-docs/issues"
+  },
+  "homepage": "https://github.com/zanona/swagger-docs#readme"
+}
