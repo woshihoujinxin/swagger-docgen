@@ -1,9 +1,11 @@
 {
   "name": "swagger-docgen",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create documentation for your Swagger API",
   "main": "index.js",
-  "dependencies": { "marked": "^0.3.5" },
+  "dependencies": {
+    "marked": "^0.3.5"
+  },
   "devDependencies": {
     "dot": "^1.0.3",
     "commander": "^2.9.0",
@@ -14,7 +16,9 @@
     "bs-less": "github:zanona/bs-less",
     "parallelshell": "^2.0.0"
   },
-  "bin": { "doc": "cli.js" },
+  "bin": {
+    "doc": "cli.js"
+  },
   "scripts": {
     "prebuild": "lessc template/styles.less --compress > template/styles.def",
     "build": "dottojs -s ./template -d ./",
