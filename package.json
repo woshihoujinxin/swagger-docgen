@@ -3,6 +3,9 @@
   "version": "0.1.1",
   "description": "Create documentation for your Swagger API",
   "main": "index.js",
+  "files": [
+    "template.js"
+  ],
   "dependencies": {
     "marked": "^0.3.5"
   },
