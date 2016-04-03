@@ -4,6 +4,7 @@
   "description": "Create documentation for your Swagger API",
   "main": "index.js",
   "files": [
+    "cli.js",
     "template.js"
   ],
   "dependencies": {
